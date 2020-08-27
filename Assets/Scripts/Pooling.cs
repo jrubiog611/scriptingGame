@@ -34,7 +34,7 @@ public class Pooling : MonoBehaviour
     {
         if (sizeLimit < sizePool)
         {
-            GameObject inst = Instantiate(objToPool);
+            GameObject inst = Instantiate(objToPool,transform.position,transform.rotation);
             pool.Enqueue(inst);
             sizeLimit++;
         }

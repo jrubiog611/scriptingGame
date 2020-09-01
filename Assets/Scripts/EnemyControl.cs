@@ -6,7 +6,7 @@ public class EnemyControl : MonoBehaviour
 {
 
     public Transform player;
-    public float speed;
+    public float speed, health, defense, attack;
 
     // Start is called before the first frame update
     void Start()

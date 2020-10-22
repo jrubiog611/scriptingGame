@@ -49,4 +49,12 @@ public class GameManager : MonoBehaviour
     {
         scoreText.text = "Score: " + (score += points).ToString();
     }
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
+            Debug.Log("Quit");
+        }
+    }
 }

@@ -8,8 +8,7 @@ public class PlayerController : MonoBehaviour
     public float height = 1;
     public float moveSpeed = 1;
 
-    public float fireRate;
-    private float fireCount;
+    private Health hp;
 
     [SerializeField]
     private Gun gun;
@@ -18,6 +17,10 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        hp = GetComponent<Health>();
+
+        if (hp != null)
+            hp.DestroyInstance += OnDestroy;
     //    if (GameObject.FindGameObjectWithTag("Gun") != null)
     //    {
     //        gun = GameObject.FindGameObjectWithTag("Gun").GetComponent<Gun>();
@@ -28,18 +31,26 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetMouseButton(0))
+        if (!GameManager.Instance.isWin)
         {
-            Attack();
-        }
+            if (Input.GetMouseButton(0))
+            {
+                Attack();
+            }
 
-        if (Input.GetMouseButtonUp(0))
-            gameObject.GetComponent<Renderer>().material.color = Color.blue;
+            if (Input.GetMouseButtonUp(0))
+                gameObject.GetComponent<Renderer>().material.color = Color.blue; 
+        }
     }
     private void Attack()
     {
         gun.Shoot();
         gameObject.GetComponent<Renderer>().material.color = Color.cyan;
+    }
+
+    private void OnDestroy()
+    {
+        Destroy(gameObject);
     }
 
 }

@@ -5,14 +5,17 @@ using UnityEngine.AI;
 
 public class EnemyControl : MonoBehaviour
 {
-
-    public Transform player;
-    public float speed, health, defense, attack;
-    private NavMeshAgent enemyAgent;
+    public int Score;
     public Gun enemyGun;
+    private NavMeshAgent enemyAgent;
+    private Health hp;
+    [SerializeField]
+    private LootChance loot;
     void Start()
     {
         enemyAgent = GetComponent<NavMeshAgent>();
+        hp = GetComponent<Health>();
+        hp.DestroyInstance += DestroyEnemy;
     }
     void FixedUpdate()
     {
@@ -49,5 +52,14 @@ public class EnemyControl : MonoBehaviour
     private void Attack()
     {
         enemyGun.Shoot();
+    }
+
+    private void DestroyEnemy()
+    {
+        loot.Drop();
+        GameManager.Instance.SetScore(Score);
+        GameManager.Instance.Enemies.Remove(gameObject);
+        GameManager.Instance.CheckWinCondition();
+        Destroy(gameObject);
     }
 }

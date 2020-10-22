@@ -5,19 +5,20 @@ using UnityEngine;
 public class MeleeAtk : Gun
 {
     [SerializeField]
-    private float dmg;
-    [SerializeField]
-    private GameObject weapon;
+    private Weapon weapon;
+    private void Start()
+    {
+        weapon.Setup(owner);
+    }
     public override void Shoot()
     {
         // play atk animation
         if (Time.time > fireCount)
         {
             fireCount = Time.time + fireRate;
-            weapon.SetActive(true);
+            weapon.gameObject.SetActive(true);
             Debug.Log("Im atacking");
         }
-            
     }
 
     // this should be on weapon

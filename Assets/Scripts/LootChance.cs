@@ -46,8 +46,6 @@ public class LootChance : MonoBehaviour
                 randomPicker -= table[i];
             }
         }
-
-
     }
 
     private void Update()
@@ -55,13 +53,11 @@ public class LootChance : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
             Destroy(gameObject);
     }
-
-    // Update is called once per frame
-    private void OnDestroy()
+    public void Drop()
     {
         if (drop)
         {
-            Instantiate(h[hIndex]);
+            Instantiate(h[hIndex], transform.position, transform.rotation);
             Debug.Log("It Works");
         }
     }

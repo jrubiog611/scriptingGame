@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Health : MonoBehaviour
 {
     [SerializeField]
     private float health;
 
+    public Action DestroyInstance;
+
+
+    // take damg on enemy collision
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
@@ -14,8 +19,8 @@ public class Health : MonoBehaviour
             health -= 5;
             if (health <= 0)
             {
-                Destroy(transform.gameObject);
-                // aqui muere el jugador/enemigo
+                if (DestroyInstance != null)
+                    DestroyInstance();
             }
         }
     }
@@ -28,7 +33,8 @@ public class Health : MonoBehaviour
         }
         if (health <= 0)
         {
-            Destroy(gameObject);
+            if (DestroyInstance != null)
+                DestroyInstance();
         }
     }
 }

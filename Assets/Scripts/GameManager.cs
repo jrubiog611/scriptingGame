@@ -1,12 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
-
+    public bool isWin;
     public static GameManager Instance { get => instance; }
+
+    [SerializeField]
+    private List<GameObject> enemies;
+
+    public GameObject winPanel;
+
+    public List<GameObject> Enemies { get => enemies; }
+
+    public Text scoreText;
+
+    private int score;
+    public int Score { get => score; }
 
     [SerializeField]
     private Transform player;
@@ -17,19 +30,31 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(instance);
+            isWin = false;
         }
         else
             Destroy(gameObject);
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public void CheckWinCondition()
     {
-        //print(player.position);
+        if (enemies.Count == 0)
+        {
+            // Then you win
+            winPanel.SetActive(true);
+            isWin = true;
+        }
+    }
+    public void SetScore(int points)
+    {
+        scoreText.text = "Score: " + (score += points).ToString();
+    }
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
+            Debug.Log("Quit");
+        }
     }
 }

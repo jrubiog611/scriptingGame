@@ -20,7 +20,7 @@ public class Health : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         if (health > 0)
         {

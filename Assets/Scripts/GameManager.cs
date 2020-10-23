@@ -9,20 +9,23 @@ public class GameManager : MonoBehaviour
     public bool isWin;
     public static GameManager Instance { get => instance; }
 
+    [Space]
+    [SerializeField]
+    private Transform player;
+
+    [Space]
     [SerializeField]
     private List<GameObject> enemies;
 
     public GameObject winPanel;
 
     public List<GameObject> Enemies { get => enemies; }
-
     public Text scoreText;
+
 
     private int score;
     public int Score { get => score; }
 
-    [SerializeField]
-    private Transform player;
     public Transform Player { get => player; }
     private void Awake()
     {
@@ -35,7 +38,6 @@ public class GameManager : MonoBehaviour
         else
             Destroy(gameObject);
     }
-
     public void CheckWinCondition()
     {
         if (enemies.Count == 0)
@@ -47,7 +49,9 @@ public class GameManager : MonoBehaviour
     }
     public void SetScore(int points)
     {
+        score += points;
         scoreText.text = "Score: " + (score += points).ToString();
+        Debug.Log(score);
     }
     private void Update()
     {
